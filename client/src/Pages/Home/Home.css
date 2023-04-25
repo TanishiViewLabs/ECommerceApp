@@ -1,0 +1,8 @@
+.home-main {
+  height: 90vh;
+  background-color: #e8e7f6;
+  color: #000;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}

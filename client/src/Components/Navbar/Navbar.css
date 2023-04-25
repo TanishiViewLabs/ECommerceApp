@@ -1,0 +1,33 @@
+.logo img {
+  height: 80px;
+  width: 80px;
+  mix-blend-mode: darken;
+}
+
+.logo {
+  display: contents;
+}
+
+.navbar {
+  background-color: #f1f4f5 !important;
+  color: #000 !important;
+  padding: 0 !important;
+}
+
+.css-1t6c9ts {
+  justify-content: end;
+  padding-right: 1rem;
+}
+
+.slide-right {
+  transition: transform 0.5s;
+}
+
+.logo:hover .slide-right {
+  opacity: 1;
+  transform: translateX(20px);
+}
+
+.text {
+  opacity: 0;
+}
