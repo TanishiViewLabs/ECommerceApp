@@ -2,7 +2,11 @@ import * as React from "react";
 import * as Yup from "yup";
 import { useFormik } from "formik";
 import "./Signup.css";
-import signup from "../Signup/sign.PNG";
+import axios from "axios";
+import { useNavigate } from "react-router-dom";
+import { toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
+import signup from "../../Asset/sign.PNG";
 import Avatar from "@mui/material/Avatar";
 import Button from "@mui/material/Button";
 import CssBaseline from "@mui/material/CssBaseline";
@@ -62,12 +66,25 @@ const initialValues = {
 };
 
 function Signup() {
+  const history = useNavigate();
+
   const { values, errors, touched, handleBlur, handleChange, handleSubmit } =
     useFormik({
       initialValues: initialValues,
       validationSchema: SignUpSchema,
       onSubmit: (values, action) => {
-        console.log(values);
+        axios.post("http://localhost:8000/signup", {
+          firstName: values.firstName,
+          lastName: values.lastName,
+          phoneNumber: values.phoneNumber,
+          email: values.email,
+          password: values.password,
+          confirmPassword: values.confirmPassword,
+        });
+        history("/login");
+        toast.success("Signup Successfull!!", {
+          style: { fontSize: "14px" },
+        });
         action.resetForm();
       },
     });
@@ -233,7 +250,7 @@ function Signup() {
                 </Grid>
               </Box>
             </Box>
-            <Copyright sx={{ mt: 5 }} />
+            <Copyright sx={{ mt: 3 }} />
           </Container>
         </ThemeProvider>
       </div>

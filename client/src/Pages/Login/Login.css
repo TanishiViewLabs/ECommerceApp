@@ -15,6 +15,11 @@
   background-color: #007cf6 !important;
 }
 
+.login-main .css-nzinn5-MuiContainer-root {
+  position: relative;
+  top: 10%;
+}
+
 @media only screen and (max-width: 1025px) {
   .login-img {
     margin: 0;
