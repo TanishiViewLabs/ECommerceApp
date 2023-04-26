@@ -1,10 +1,10 @@
 const express = require("express");
 const router = express.Router();
-const signup = require("../controller/signUp");
+const signup = require("../controller/Registeration/signUp");
 const passport = require("passport");
 const User = require("../modles/UserData");
-const forgetPass = require("../controller/forgotPass");
-const newPass = require("../controller/newPass");
+const forgetPass = require("../controller/Registeration/forgotPass");
+const newPass = require("../controller/Registeration/newPass");
 router.get("/", (req, res) => {
   res.send({ result: "The setup of backend server was completed" });
 });
