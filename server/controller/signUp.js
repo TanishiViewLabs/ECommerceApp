@@ -10,7 +10,7 @@ const registerData = async (req, res) => {
     userConfirmPassword,
     userPhone,
   } = req.body;
-  console.log(userConfirmPassword === userPassword);
+  // console.log(userConfirmPassword === userPassword);
   try {
     //Hash password first
     const hash = async (password, saltRounds) => {
@@ -50,7 +50,7 @@ const registerData = async (req, res) => {
         data: newUser,
         status: "Sucess",
       });
-      res.send("Your data is inserted sucessfully");
+      // res.send("Your data is inserted sucessfully");v
     }
   } catch (err) {
     console.log("An error has occured" + err);
