@@ -1,8 +1,10 @@
 import * as React from "react";
 import * as Yup from "yup";
 import { useFormik } from "formik";
+import axios from "axios";
+import { useNavigate } from "react-router-dom";
 import "./Login.css";
-import login from "../Login/login.jpg";
+import login from "../../Asset/login.jpg";
 import Avatar from "@mui/material/Avatar";
 import Button from "@mui/material/Button";
 import CssBaseline from "@mui/material/CssBaseline";
@@ -50,31 +52,29 @@ const initialValues = {
 };
 
 function Login() {
+  const history = useNavigate();
+
   const { values, errors, touched, handleBlur, handleChange, handleSubmit } =
     useFormik({
       initialValues: initialValues,
       validationSchema: loginSchema,
       onSubmit: (values, action) => {
         console.log(values);
+        axios.post("http://localhost:8000/login", {
+          email: values.email,
+          password: values.password,
+        });
+        history("/");
         action.resetForm();
       },
     });
-
-  // const handleSubmit = (event) => {
-  //   event.preventDefault();
-  //   const data = new FormData(event.currentTarget);
-  //   console.log({
-  //     email: data.get("email"),
-  //     password: data.get("password"),
-  //   });
-  // };
 
   return (
     <div className="login-main">
       <div className="col-md-6">
         <img src={login} alt="" className="login-img" />
       </div>
-      <div className="col-md-6">
+      <div className="col-md-6 signin">
         <ThemeProvider theme={theme}>
           <Container component="main" maxWidth="xs">
             <CssBaseline />
