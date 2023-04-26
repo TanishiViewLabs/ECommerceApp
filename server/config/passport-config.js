@@ -10,7 +10,6 @@ function initialize(passport, getUserByEmail) {
         status: "Fail",
       });
     }
-
     try {
       if (await bcrypt.compare(password, user.password)) {
         return done(null, user);

@@ -4,6 +4,7 @@ const signup = require("../controller/signUp");
 const passport = require("passport");
 const User = require("../modles/UserData");
 const forgetPass = require("../controller/forgotPass");
+const newPass = require("../controller/newPass");
 router.get("/", (req, res) => {
   res.send({ result: "The setup of backend server was completed" });
 });
@@ -28,5 +29,6 @@ router.get("/failure", (req, res) => {
 });
 router.post("/forget", forgetPass.resetPass);
 router.post("/signup", signup.registerData);
+router.post("/reset/:token", newPass.changePassword);
 // router.get("/dashboard");
 module.exports = router;
