@@ -7,6 +7,7 @@ const passport = require("passport");
 const flash = require("express-flash");
 const session = require("express-session");
 const User = require("./modles/UserData");
+const cors = require("cors");
 dotenv.config();
 app.use(express.json());
 app.use(flash());
@@ -17,6 +18,7 @@ app.use(
     saveUninitialized: false,
   })
 );
+app.use(cors());
 app.use(passport.initialize());
 app.use(passport.session());
 app.use(routes);

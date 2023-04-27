@@ -5,14 +5,19 @@ function initialize(passport, getUserByEmail) {
   const authenticateUser = async (email, password, done) => {
     const user = await getUserByEmail(email);
     if (!user) {
-      return done(null, false, { message: "No user found with that email" });
+      return done(null, false, {
+        message: "No user found with that email",
+        status: "Fail",
+      });
     }
-
     try {
       if (await bcrypt.compare(password, user.password)) {
         return done(null, user);
       } else {
-        return done(null, false, { message: "Incorrect password" });
+        return done(null, false, {
+          message: "Incorrect password",
+          status: "Fail",
+        });
       }
     } catch (err) {
       return done(err);
