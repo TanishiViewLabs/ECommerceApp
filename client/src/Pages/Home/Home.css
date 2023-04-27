@@ -1,8 +1,36 @@
 .home-main {
-  height: 90vh;
+  height: 100vh;
   background-color: #e8e7f6;
   color: #000;
   display: flex;
-  justify-content: center;
-  align-items: center;
+}
+
+.filters {
+  background: #f1f4f5;
+  height: 100vh;
+}
+
+.filters .css-1nrlq1o-MuiFormControl-root {
+  min-width: 240px;
+}
+
+.filters .css-dmmspl-MuiFormGroup-root {
+  margin: 0 1rem;
+}
+
+.filters .css-j204z7-MuiFormControlLabel-root .MuiFormControlLabel-label {
+  font-size: 14px !important;
+  font-weight: bold;
+}
+
+.filters .css-1hbvpl3-MuiSvgIcon-root {
+  font-size: 16px !important;
+}
+
+.filters .css-11zohuh-MuiSvgIcon-root {
+  width: unset;
+  height: unset;
+}
+.filters .css-i4bv87-MuiSvgIcon-root {
+  font-size: 18px;
 }

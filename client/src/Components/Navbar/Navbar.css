@@ -6,12 +6,17 @@
 
 .logo {
   display: contents;
+  cursor: pointer;
 }
 
 .navbar {
   background-color: #f1f4f5 !important;
   color: #000 !important;
   padding: 0 !important;
+}
+
+hr {
+  margin: 0 !important;
 }
 
 .css-1t6c9ts {
