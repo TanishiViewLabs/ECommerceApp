@@ -8,9 +8,12 @@ const flash = require("express-flash");
 const session = require("express-session");
 const User = require("./modles/UserData");
 const cors = require("cors");
+const bodyParser = require("body-parser");
+
 dotenv.config();
 app.use(express.json());
 app.use(flash());
+app.use(bodyParser.urlencoded({ extended: false }));
 app.use(
   session({
     secret: "secret",

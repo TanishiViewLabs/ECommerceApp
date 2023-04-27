@@ -1,4 +1,4 @@
-const User = require("../modles/UserData");
+const User = require("../../modles/UserData");
 const dotenv = require("dotenv");
 const bcrypt = require("bcrypt");
 const changePassword = async (req, res) => {
