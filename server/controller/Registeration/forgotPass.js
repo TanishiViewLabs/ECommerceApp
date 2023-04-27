@@ -1,13 +1,13 @@
-const User = require("../modles/UserData");
-const transporter = require("../config/connectEmail");
-let userUrl = `http://localhost:${process.env.FRONTENDPORT}/NewPassword/`;
+const User = require("../../modles/UserData");
+const transporter = require("../../config/connectEmail");
+// let userUrl = `http://localhost:${process.env.FRONTENDPORT}/NewPassword/`;
 const resetPass = async (req, res) => {
   const { email } = req.body;
   const isPresentEmail = await User.find({ email: email });
   if (isPresentEmail == null) {
     res.send({ status: "fail", message: "This email dosen't exists" });
   } else {
-    userUrl = userUrl + isPresentEmail[0]._id;
+    let userUrl = `http://localhost:${process.env.FRONTENDPORT}/NewPassword/${isPresentEmail[0]._id}`;
     const mailOptions = {
       from: process.env.EMAIL_USER,
       to: email,
