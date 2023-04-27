@@ -1,0 +1,33 @@
+.signup-main {
+  height: 100vh;
+  background-color: #e8e7f6;
+  color: #000;
+  display: flex;
+}
+
+.signup-img {
+  height: 70vh;
+  mix-blend-mode: darken;
+  margin: 3rem 6rem;
+}
+
+.css-1999axt-MuiAvatar-root {
+  background-color: #007cf6 !important;
+}
+
+@media only screen and (max-width: 1025px) {
+  .signup-img {
+    height: 60vh;
+    margin-top: 5rem;
+    margin-left: 3rem;
+  }
+  .css-nzinn5-MuiContainer-root {
+    max-width: 350px !important;
+  }
+}
+
+@media only screen and (max-width: 769px) {
+  .signup-img {
+    visibility: hidden;
+  }
+}

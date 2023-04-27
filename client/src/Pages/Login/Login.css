@@ -1,0 +1,50 @@
+.login-main {
+  height: 90vh;
+  background-color: #e8e7f6;
+  color: #000;
+  display: flex;
+}
+
+.login-img {
+  height: 80vh;
+  mix-blend-mode: darken;
+  margin: 0 0 0 5rem;
+}
+
+.css-1999axt-MuiAvatar-root {
+  background-color: #007cf6 !important;
+}
+
+.login-main .css-nzinn5-MuiContainer-root {
+  position: relative;
+  top: 10%;
+}
+
+@media only screen and (max-width: 1025px) {
+  .login-img {
+    margin: 0;
+  }
+}
+
+@media only screen and (max-width: 769px) {
+  .login-img {
+    /* margin: 0; */
+    visibility: hidden;
+  }
+
+  .col-md-6 {
+    margin-left: -5.5rem;
+  }
+}
+
+@media only screen and (max-width: 426px) {
+  .col-md-6 {
+    margin-left: -18.5rem;
+  }
+}
+
+@media only screen and (max-width: 376px) {
+  .col-md-6 {
+    margin-left: -19.5rem;
+  }
+}
