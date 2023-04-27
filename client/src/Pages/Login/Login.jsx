@@ -4,6 +4,8 @@ import { useFormik } from "formik";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
 import "./Login.css";
+import { toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 import login from "../../Asset/login.jpg";
 import Avatar from "@mui/material/Avatar";
 import Button from "@mui/material/Button";
@@ -60,11 +62,23 @@ function Login() {
       validationSchema: loginSchema,
       onSubmit: (values, action) => {
         console.log(values);
-        axios.post("http://localhost:8000/login", {
-          email: values.email,
-          password: values.password,
-        });
+        axios
+          .post("http://localhost:8000/login", {
+            email: values.email,
+            password: values.password,
+          })
+          .then((res) => {
+            if (res.data.status === "fail") {
+              toast.error("Wrong Credentials", {
+                style: { fontSize: "14px" },
+              });
+              history("/login");
+              return;
+            }
+          });
+        localStorage.setItem("email", values.email);
         history("/");
+        console.log("entered");
         action.resetForm();
       },
     });

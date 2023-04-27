@@ -6,15 +6,17 @@ import Navbar from "./Components/Navbar/Navbar";
 import Footer from "./Components/Footer/Footer";
 import Home from "./Pages/Home/Home";
 import Forgotpassword from "./Pages/Forgot Password/Forgotpassword";
+import NewPassword from "./Pages/NewPassword/NewPassword";
 
 function App() {
   return (
     <BrowserRouter>
       <Navbar />
       <Routes>
-        <Route path={"/login "} element={<Login />} />
+        <Route path={"/login"} element={<Login />} />
         <Route path={"/signup"} element={<Signup />} />
         <Route path={"/forgotpassword"} element={<Forgotpassword />} />
+        <Route path={"/NewPassword/:id"} element={<NewPassword />} />
         <Route path={"/"} element={<Home />} />
       </Routes>
       <Footer />
