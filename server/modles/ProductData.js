@@ -23,7 +23,7 @@ const productSchema = new mongoose.Schema({
   catagory: { type: String, require: true },
   colour: { type: String, require: true },
   audience: { type: String, require: true },
-  sellerName: { type: String, require: true },
+  adminId: { type: String, require: true },
 });
 const Product = mongoose.model("Product", productSchema);
 module.exports = Product;

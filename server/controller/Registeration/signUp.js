@@ -47,7 +47,7 @@ const registerData = async (req, res) => {
       // res.send("Your data is inserted sucessfully");v
     }
   } catch (err) {
-    console.log("An error has occured" + err);
+    res.send({ status: "fail", message: `An error has occurred ${err}` });
   }
   //   console.log("Inside the register data route");
 };

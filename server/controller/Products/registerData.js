@@ -5,34 +5,39 @@ const randomSKU = () => {
   return (num = Math.floor(Math.random() * (max - min + 1)) + min); // Generate a random number between min and max (inclusive)
 };
 const insertProduct = async (req, res) => {
-  console.log(req.body);
+  //   console.log(req.body);
+  const currAdminId = req.session.passport.user;
+  // console.log(req.session.passport.user);
   const {
-    currName,
-    currPrice,
-    currSize,
-    currProductDetails,
-    currCatagory,
-    currColour,
-    currAudience,
-    currSellerName,
-    currQuantity,
+    name,
+    price,
+    size,
+    productDetails,
+    catagory,
+    colour,
+    audience,
+    quantity,
   } = req.body;
   const currFilePath = req.file.path;
   const currSKU = randomSKU();
-  const newProduct = new Product({
-    name: currName,
-    price: currPrice,
-    size: currSize,
-    SKU: currSKU,
-    productDetails: currProductDetails,
-    picturePath: currFilePath,
-    quantity: currQuantity,
-    catagory: currCatagory,
-    colour: currColour,
-    audience: currAudience,
-    sellerName: currSellerName,
-  });
-  newProduct.save();
-  res.send({ status: "success", data: newProduct, message: "Data recieved" });
+  try {
+    const newProduct = new Product({
+      name: name,
+      price: price,
+      size: size,
+      SKU: currSKU,
+      productDetails: productDetails,
+      picturePath: currFilePath,
+      quantity: quantity,
+      catagory: catagory,
+      colour: colour,
+      audience: audience,
+      adminId: currAdminId,
+    });
+    newProduct.save();
+    res.send({ status: "success", data: newProduct, message: "Data recieved" });
+  } catch (err) {
+    res.send({ status: "fail", message: `An error has occurred ${err}` });
+  }
 };
 module.exports = { insertProduct };
