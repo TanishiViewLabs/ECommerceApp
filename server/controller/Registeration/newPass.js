@@ -3,8 +3,7 @@ const dotenv = require("dotenv");
 const bcrypt = require("bcrypt");
 const changePassword = async (req, res) => {
   let { token } = req.params;
-  const { newPass, confirmPass } = req.body;
-
+  const { password, confirmPassword } = req.body;
   console.log(token);
   if (token) {
     const userID = token;
@@ -14,13 +13,13 @@ const changePassword = async (req, res) => {
       if (currUser == null) {
         res.send({ result: "This user dosen't exits.", status: "fail" });
       }
-      if (await bcrypt.compare(newPass, currUser[0].password)) {
+      if (await bcrypt.compare(password, currUser[0].password)) {
         res.send({
           result: "The new password can't be same as the old one.",
           status: "fail",
         });
       }
-      if (newPass !== confirmPass) {
+      if (password !== confirmPassword) {
         res.send({ result: "Your pasword dosen't match!", status: "fail" });
       }
       const hash = async (password, saltRounds) => {
@@ -32,7 +31,7 @@ const changePassword = async (req, res) => {
           return null;
         }
       };
-      const hashPassword = await hash(newPass, 10);
+      const hashPassword = await hash(password, 10);
       const update = {
         $set: {
           password: hashPassword,
@@ -43,6 +42,7 @@ const changePassword = async (req, res) => {
       res.send({
         result: "Password is updated Sucessfully!",
         status: "success ",
+        newPass: password,
       });
     } catch (err) {
       console.error("Inside catch");

@@ -6,15 +6,12 @@ const userSchema = new mongoose.Schema({
   email: { type: String, require: true },
   password: {
     type: String,
-    required: true,
-  },
-  confirmPassword: {
-    type: String,
-    required: true,
   },
   phoneNumber: {
     type: String,
-    required: true,
+  },
+  age: {
+    type: Number,
   },
 });
 const User = mongoose.model("User", userSchema);

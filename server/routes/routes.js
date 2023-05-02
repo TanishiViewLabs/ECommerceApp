@@ -12,6 +12,7 @@ const checkLogin = require("../config/checkLogin");
 const adminProducts = require("../controller/Products/getAdminProducts");
 const updateAdminProduct = require("../controller/Products/updateAdminProduct");
 const deleteAdminProduct = require("../controller/Products/deleteAdminProduct");
+const productFilter = require("../controller/Products/productFilter");
 router.get("/", (req, res) => {
   res.send({ result: "The setup of backend server was completed" });
 });
@@ -59,4 +60,5 @@ router.post(
   checkLogin.isAuthenticated,
   deleteAdminProduct.deleteProduct
 );
+router.get("/productFilter", productFilter.filter);
 module.exports = router;
