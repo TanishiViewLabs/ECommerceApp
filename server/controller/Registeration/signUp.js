@@ -1,4 +1,3 @@
-const mongoose = require("mongoose");
 const User = require("../../modles/UserData");
 const bcrypt = require("bcrypt");
 const registerData = async (req, res) => {

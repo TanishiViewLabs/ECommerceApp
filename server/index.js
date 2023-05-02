@@ -36,7 +36,7 @@ initializePassport(
     return User.findOne({ _id: id });
   }
 );
-const PORT = process.env.PORT;
+const PORT = process.env.PORT || 9001;
 const URL = process.env.MONGOURL;
 connectDB(URL);
 app.listen(PORT, () => {
