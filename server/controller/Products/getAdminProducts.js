@@ -3,7 +3,6 @@ const getProducts = async (req, res) => {
   const currAdminId = req.session.passport.user;
   try {
     const allProducts = await Product.find({ adminId: currAdminId });
-    // console.log(allProducts[0]);
     res.send({
       data: allProducts,
       status: "success",
