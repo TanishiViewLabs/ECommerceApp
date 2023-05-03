@@ -26,7 +26,7 @@ const productSchema = new mongoose.Schema({
   ],
   quantity: { type: Number, require: true },
   catagory: { type: String, require: true },
-  colour: {
+  color: {
     type: Array,
     items: {
       type: String,
@@ -34,6 +34,7 @@ const productSchema = new mongoose.Schema({
   },
   audience: { type: String, require: true },
   adminId: { type: String, require: true },
+  date: { type: String },
 });
 const Product = mongoose.model("Product", productSchema);
 module.exports = Product;

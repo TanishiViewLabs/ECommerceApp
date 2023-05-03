@@ -7,7 +7,7 @@ const updateProducts = async (req, res) => {
     size,
     productDetails,
     catagory,
-    colour,
+    color,
     audience,
     quantity,
   } = req.body;
@@ -17,7 +17,7 @@ const updateProducts = async (req, res) => {
     size: size,
     productDetails: productDetails,
     catagory: catagory,
-    colour: colour,
+    color: color,
     audience: audience,
     quantity: quantity,
   };

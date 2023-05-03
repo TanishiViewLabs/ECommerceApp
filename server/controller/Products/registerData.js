@@ -4,6 +4,14 @@ const randomSKU = () => {
   let max = 99999;
   return (num = Math.floor(Math.random() * (max - min + 1)) + min); // Generate a random number between min and max (inclusive)
 };
+const getCurrDate = () => {
+  const currentDate = new Date();
+  const day = currentDate.getDate().toString().padStart(2, "0");
+  const month = (currentDate.getMonth() + 1).toString().padStart(2, "0");
+  const year = currentDate.getFullYear();
+  const formattedDate = `${day}/${month}/${year}`;
+  return formattedDate;
+};
 const insertProduct = async (req, res) => {
   //   console.log(req.body);
   const currAdminId = req.session.passport.user;
@@ -14,13 +22,14 @@ const insertProduct = async (req, res) => {
     size,
     productDetails,
     catagory,
-    colour,
+    color,
     audience,
     quantity,
   } = req.body;
   const currFilePath = req.file.path;
-  console.log(typeof colour, typeof size);
+  console.log(typeof color, typeof size);
   const currSKU = randomSKU();
+  const currDate = getCurrDate();
   try {
     const newProduct = new Product({
       name: name,
@@ -31,9 +40,10 @@ const insertProduct = async (req, res) => {
       picturePath: currFilePath,
       quantity: quantity,
       catagory: catagory,
-      colour: colour,
+      color: color,
       audience: audience,
       adminId: currAdminId,
+      date: currDate,
     });
     newProduct.save();
     res.send({ status: "success", data: newProduct, message: "Data recieved" });

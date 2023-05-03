@@ -2,7 +2,9 @@ const isAuthenticated = (req, res, next) => {
   if (req.isAuthenticated()) {
     return next();
   }
-  res.send({ status: "fail", message: "Failed to authenticate user!" });
+  res
+    .status(401)
+    .json({ status: "fail", message: "Failed to authenticate user!" });
 };
 const isNotAuthicated = (req, res, next) => {
   if (req.isAuthenticated()) {
