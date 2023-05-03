@@ -3,7 +3,12 @@ const mongoose = require("mongoose");
 const productSchema = new mongoose.Schema({
   name: { type: String, require: true, minlegth: 2, maxlegth: 20 },
   price: { type: Number, require: true },
-  size: { type: String, require: true },
+  size: {
+    type: Array,
+    items: {
+      type: String,
+    },
+  },
   SKU: { type: String, require: true },
   productDetails: {
     type: String,
@@ -21,7 +26,12 @@ const productSchema = new mongoose.Schema({
   ],
   quantity: { type: Number, require: true },
   catagory: { type: String, require: true },
-  colour: { type: String, require: true },
+  colour: {
+    type: Array,
+    items: {
+      type: String,
+    },
+  },
   audience: { type: String, require: true },
   adminId: { type: String, require: true },
 });

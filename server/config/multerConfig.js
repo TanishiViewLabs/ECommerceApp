@@ -4,7 +4,8 @@ const storage = multer.diskStorage({
     cb(null, "./public/assets");
   },
   filename: function (req, file, cb) {
-    cb(null, file.originalname);
+    const prefix = Date.now().toString();
+    cb(null, `${prefix}-${file.originalname}`);
   },
 });
 module.exports = storage;

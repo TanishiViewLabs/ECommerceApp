@@ -19,6 +19,7 @@ const insertProduct = async (req, res) => {
     quantity,
   } = req.body;
   const currFilePath = req.file.path;
+  console.log(typeof colour, typeof size);
   const currSKU = randomSKU();
   try {
     const newProduct = new Product({
