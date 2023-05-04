@@ -21,12 +21,12 @@ const insertProduct = async (req, res) => {
     price,
     size,
     productDetails,
-    catagory,
+    category,
     color,
     audience,
     quantity,
   } = req.body;
-  const currFilePath = req.file.path;
+  const image = req.file.path;
   console.log(typeof color, typeof size);
   const currSKU = randomSKU();
   const currDate = getCurrDate();
@@ -37,9 +37,9 @@ const insertProduct = async (req, res) => {
       size: size,
       SKU: currSKU,
       productDetails: productDetails,
-      picturePath: currFilePath,
+      picturePath: image,
       quantity: quantity,
-      catagory: catagory,
+      category: category,
       color: color,
       audience: audience,
       adminId: currAdminId,

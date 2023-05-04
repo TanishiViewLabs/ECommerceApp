@@ -14,9 +14,13 @@ const updateAdminProduct = require("../controller/Products/updateAdminProduct");
 const deleteAdminProduct = require("../controller/Products/deleteAdminProduct");
 const productFilter = require("../controller/Products/productFilter");
 const getBySKU = require("../controller/Products/getBySKU");
+const addToCart = require("../controller/Cart/addToCart");
+const getCartItems = require("../controller/Cart/getCartItems");
 router.get("/", (req, res) => {
   res.send({ result: "The setup of backend server was completed" });
 });
+
+// USER ROUTES
 const upload = multer({ storage });
 
 router.post(
@@ -37,14 +41,16 @@ router.get("/sucess", async (req, res) => {
 router.get("/failure", (req, res) => {
   res.send({ status: "fail" });
 });
+
+router.post("/forget", forgetPass.resetPass);
+router.post("/signup", signup.registerData);
+router.post("/reset/:token", newPass.changePassword);
+// Product API
 router.get(
   "/adminProducts",
   checkLogin.isAuthenticated,
   adminProducts.getProducts
 );
-router.post("/forget", forgetPass.resetPass);
-router.post("/signup", signup.registerData);
-router.post("/reset/:token", newPass.changePassword);
 router.post(
   "/updateProduct",
   checkLogin.isAuthenticated,
@@ -61,6 +67,9 @@ router.post(
   checkLogin.isAuthenticated,
   deleteAdminProduct.deleteProduct
 );
-router.get("/productFilter", productFilter.filter);
-router.get("/getProduct/:SKU", getBySKU.getProduct);
+router.get("/productFilter", checkLogin.isAuthenticated, productFilter.filter);
+router.get("/getProduct/:SKU", checkLogin.isAuthenticated, getBySKU.getProduct);
+// Cart API
+router.post("/addToCart", checkLogin.isAuthenticated, addToCart.addProduct);
+router.get("/getCartItems", checkLogin.isAuthenticated, getCartItems.allItems);
 module.exports = router;
