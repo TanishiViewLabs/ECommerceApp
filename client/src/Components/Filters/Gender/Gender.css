@@ -1,0 +1,16 @@
+@media only screen and (max-width: 1025px) {
+  .filters .css-1nrlq1o-MuiFormControl-root {
+    min-width: -webkit-fill-available;
+  }
+  .css-1domaf0 {
+    width: -webkit-fill-available !important;
+  }
+
+  .inputField {
+    width: 350px !important;
+  }
+
+  .form-fields .MuiFormControl-root {
+    min-width: 160px !important;
+  }
+}

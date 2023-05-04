@@ -7,6 +7,8 @@ import Footer from "./Components/Footer/Footer";
 import Home from "./Pages/Home/Home";
 import Forgotpassword from "./Pages/Forgot Password/Forgotpassword";
 import NewPassword from "./Pages/NewPassword/NewPassword";
+import Addproduct from "./Components/Products/Addproduct/Addproduct";
+import UpdateProduct from "./Components/Products/Updateproduct/UpdateProduct";
 
 function App() {
   return (
@@ -16,7 +18,9 @@ function App() {
         <Route path={"/login"} element={<Login />} />
         <Route path={"/signup"} element={<Signup />} />
         <Route path={"/forgotpassword"} element={<Forgotpassword />} />
-        <Route path={"/NewPassword/:id"} element={<NewPassword />} />
+        <Route path={"/NewPassword/:token"} element={<NewPassword />} />
+        <Route path={"/Addproduct"} element={<Addproduct />} />
+        <Route path={"/Updateproduct/:SKU"} element={<UpdateProduct />} />
         <Route path={"/"} element={<Home />} />
       </Routes>
       <Footer />

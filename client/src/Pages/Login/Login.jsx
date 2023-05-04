@@ -3,10 +3,11 @@ import * as Yup from "yup";
 import { useFormik } from "formik";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
+import { Helmet, HelmetProvider } from "react-helmet-async";
 import "./Login.css";
 import { toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
-import login from "../../Asset/login.jpg";
+import login from "../../Asset/logins.jpg";
 import Avatar from "@mui/material/Avatar";
 import Button from "@mui/material/Button";
 import CssBaseline from "@mui/material/CssBaseline";
@@ -18,6 +19,8 @@ import LockOutlinedIcon from "@mui/icons-material/LockOutlined";
 import Typography from "@mui/material/Typography";
 import Container from "@mui/material/Container";
 import { createTheme, ThemeProvider } from "@mui/material/styles";
+
+axios.defaults.withCredentials = true;
 
 function Copyright(props) {
   return (
@@ -68,6 +71,7 @@ function Login() {
             password: values.password,
           })
           .then((res) => {
+            console.log(res.data);
             if (res.data.status === "fail") {
               toast.error("Wrong Credentials", {
                 style: { fontSize: "14px" },
@@ -75,100 +79,107 @@ function Login() {
               history("/login");
               return;
             }
+            localStorage.setItem("email", values.email);
+            history("/");
           });
-        localStorage.setItem("email", values.email);
-        history("/");
         console.log("entered");
         action.resetForm();
       },
     });
 
   return (
-    <div className="login-main">
-      <div className="col-md-6">
-        <img src={login} alt="" className="login-img" />
-      </div>
-      <div className="col-md-6 signin">
-        <ThemeProvider theme={theme}>
-          <Container component="main" maxWidth="xs">
-            <CssBaseline />
-            <Box
-              sx={{
-                marginTop: 8,
-                display: "flex",
-                flexDirection: "column",
-                alignItems: "center",
-              }}
-            >
-              <Avatar sx={{ m: 1, bgcolor: "secondary.main" }}>
-                <LockOutlinedIcon />
-              </Avatar>
-              <Typography component="h1" variant="h5">
-                Sign in
-              </Typography>
+    <div>
+      <HelmetProvider>
+        <Helmet>
+          <title> Login </title>
+        </Helmet>
+      </HelmetProvider>
+      <div className="login-main">
+        <div className="col-md-6">
+          <img src={login} alt="" className="login-img" />
+        </div>
+        <div className="col-md-6 signin">
+          <ThemeProvider theme={theme}>
+            <Container component="main" maxWidth="xs">
+              <CssBaseline />
               <Box
-                component="form"
-                onSubmit={handleSubmit}
-                noValidate
-                sx={{ mt: 1 }}
+                sx={{
+                  marginTop: 8,
+                  display: "flex",
+                  flexDirection: "column",
+                  alignItems: "center",
+                }}
               >
-                <TextField
-                  margin="normal"
-                  required
-                  fullWidth
-                  id="email"
-                  label="Email Address"
-                  name="email"
-                  autoComplete="email"
-                  // autoFocus
-                  value={values.email}
-                  onChange={handleChange}
-                  onBlur={handleBlur}
-                />
-                {errors.email && touched.email ? (
-                  <span style={{ color: "red" }}>{errors.email}</span>
-                ) : null}
-                <TextField
-                  margin="normal"
-                  required
-                  fullWidth
-                  name="password"
-                  label="Password"
-                  type="password"
-                  id="password"
-                  autoComplete="current-password"
-                  value={values.password}
-                  onChange={handleChange}
-                  onBlur={handleBlur}
-                />
-                {errors.password && touched.password ? (
-                  <span style={{ color: "red" }}>{errors.password}</span>
-                ) : null}
-                <Button
-                  type="submit"
-                  fullWidth
-                  variant="contained"
-                  sx={{ mt: 3, mb: 2 }}
+                <Avatar sx={{ m: 1, bgcolor: "secondary.main" }}>
+                  <LockOutlinedIcon />
+                </Avatar>
+                <Typography component="h1" variant="h5">
+                  Sign in
+                </Typography>
+                <Box
+                  component="form"
+                  onSubmit={handleSubmit}
+                  noValidate
+                  sx={{ mt: 1 }}
                 >
-                  Sign In
-                </Button>
-                <Grid container>
-                  <Grid item xs>
-                    <Link href="/forgotpassword" variant="body2">
-                      Forgot password?
-                    </Link>
+                  <TextField
+                    margin="normal"
+                    required
+                    fullWidth
+                    id="email"
+                    label="Email Address"
+                    name="email"
+                    autoComplete="email"
+                    // autoFocus
+                    value={values.email}
+                    onChange={handleChange}
+                    onBlur={handleBlur}
+                  />
+                  {errors.email && touched.email ? (
+                    <span style={{ color: "red" }}>{errors.email}</span>
+                  ) : null}
+                  <TextField
+                    margin="normal"
+                    required
+                    fullWidth
+                    name="password"
+                    label="Password"
+                    type="password"
+                    id="password"
+                    autoComplete="current-password"
+                    value={values.password}
+                    onChange={handleChange}
+                    onBlur={handleBlur}
+                  />
+                  {errors.password && touched.password ? (
+                    <span style={{ color: "red" }}>{errors.password}</span>
+                  ) : null}
+                  <Button
+                    type="submit"
+                    fullWidth
+                    variant="contained"
+                    sx={{ mt: 3, mb: 2 }}
+                  >
+                    Sign In
+                  </Button>
+                  <Grid container>
+                    <Grid item xs>
+                      <Link href="/forgotpassword" variant="body2">
+                        Forgot password?
+                      </Link>
+                    </Grid>
+                    <Grid item>
+                      <Link href="/signup" variant="body2">
+                        {"Don't have an account? Sign Up"}
+                      </Link>
+                    </Grid>
                   </Grid>
-                  <Grid item>
-                    <Link href="/signup" variant="body2">
-                      {"Don't have an account? Sign Up"}
-                    </Link>
-                  </Grid>
-                </Grid>
+                </Box>
               </Box>
-            </Box>
-            <Copyright sx={{ mt: 8, mb: 4 }} />
-          </Container>
-        </ThemeProvider>
+              <Copyright sx={{ mt: 8, mb: 4 }} />
+            </Container>
+          </ThemeProvider>
+        </div>
       </div>
     </div>
   );

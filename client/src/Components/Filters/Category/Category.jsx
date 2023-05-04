@@ -3,7 +3,7 @@ import FormGroup from "@mui/material/FormGroup";
 import Checkbox from "@mui/material/Checkbox";
 import { FormControlLabel, FormLabel } from "@mui/material";
 function Category() {
-  const categories = ["T-shirt", "Shirt", "Jeans"];
+  const categories = ["T-shirt", "Shirt", "Jeans", "Shoes"];
 
   return (
     <div>

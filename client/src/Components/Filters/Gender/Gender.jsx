@@ -5,8 +5,12 @@ import FormControl from "@mui/material/FormControl";
 import FormLabel from "@mui/material/FormLabel";
 import FormControlLabel from "@mui/material/FormControlLabel";
 
+import "./Gender.css";
+
 function Gender() {
+  // const gen = gender;
   const gender = ["Men", "Women", "Boys", "Girls"];
+
   return (
     <div>
       <FormControl className="my-3">

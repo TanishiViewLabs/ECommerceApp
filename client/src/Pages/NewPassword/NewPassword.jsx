@@ -3,7 +3,7 @@ import * as Yup from "yup";
 import { useFormik } from "formik";
 import "./NewPassword.css";
 import axios from "axios";
-import { useNavigate, useParams } from "react-router-dom";
+import { useParams } from "react-router-dom";
 import { toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import changepass from "../../Asset/Changepassword.png";
@@ -18,6 +18,7 @@ import LockOutlinedIcon from "@mui/icons-material/LockOutlined";
 import Typography from "@mui/material/Typography";
 import Container from "@mui/material/Container";
 import { createTheme, ThemeProvider } from "@mui/material/styles";
+import { Helmet, HelmetProvider } from "react-helmet-async";
 
 function Copyright(props) {
   return (
@@ -56,6 +57,7 @@ const initialValues = {
 function NewPassword() {
   // const history = useNavigate();
   const { token } = useParams();
+  console.log(token);
 
   const { values, errors, touched, handleBlur, handleChange, handleSubmit } =
     useFormik({
@@ -79,6 +81,11 @@ function NewPassword() {
 
   return (
     <div className="signup-main">
+      <HelmetProvider>
+        <Helmet>
+          <title> Change Password </title>
+        </Helmet>
+      </HelmetProvider>
       <div className="col-md-6">
         <img src={changepass} alt="" className="signup-img" />
       </div>

@@ -1,0 +1,71 @@
+.add-main {
+  height: 100vh;
+}
+
+.inputField {
+  border: none;
+  background: none;
+  border-bottom: 1px solid;
+}
+
+.form-fields {
+  margin: 2rem 1rem 0rem 0rem;
+}
+
+.form-fields textarea {
+  width: 430px;
+  height: 160px;
+}
+
+.form-fields #name {
+  width: 430px;
+}
+
+.form-fields #price,
+.form-fields #quantity {
+  width: 430px;
+}
+
+textarea:focus,
+input:focus {
+  outline: none;
+}
+
+.product-img-list {
+  list-style: none;
+  display: flex;
+  flex-wrap: wrap;
+  padding: 0;
+}
+
+.remove-img-btn {
+  height: fit-content;
+  position: relative;
+  top: -80%;
+  left: 78%;
+  font-size: 0.6rem;
+}
+
+.product-img {
+  margin: 1rem;
+}
+
+@media only screen and (max-width: 1025px) {
+  .inputField {
+    width: 350px !important;
+  }
+
+  .form-fields .MuiFormControl-root {
+    min-width: 160px !important;
+  }
+}
+
+@media only screen and (max-width: 769px) {
+  .inputField {
+    width: 350px !important;
+  }
+
+  .form-fields .MuiFormControl-root {
+    min-width: 160px !important;
+  }
+}

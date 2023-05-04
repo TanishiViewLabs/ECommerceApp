@@ -3,6 +3,7 @@ import * as Yup from "yup";
 import { useFormik } from "formik";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
+import { Helmet, HelmetProvider } from "react-helmet-async";
 import "./Forgotpassword.css";
 import { toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
@@ -70,6 +71,11 @@ function Forgotpassword() {
 
   return (
     <div className="forgotpass-main">
+      <HelmetProvider>
+        <Helmet>
+          <title> Forget Password </title>
+        </Helmet>
+      </HelmetProvider>
       <div className="col-md-6">
         <img src={forgot} alt="" className="login-img" />
       </div>

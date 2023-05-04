@@ -25,7 +25,7 @@ function Pricerange() {
     }
   };
   return (
-    <FormGroup className="my-3">
+    <FormGroup className="my-3 mx-0">
       <FormLabel
         id="demo-radio-buttons-group-label"
         className="text-center text-dark"
