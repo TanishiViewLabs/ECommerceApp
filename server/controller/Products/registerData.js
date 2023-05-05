@@ -37,7 +37,7 @@ const insertProduct = async (req, res) => {
       size: size,
       SKU: currSKU,
       productDetails: productDetails,
-      picturePath: image,
+      image: image,
       quantity: quantity,
       category: category,
       color: color,

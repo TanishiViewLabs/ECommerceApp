@@ -16,6 +16,8 @@ const productFilter = require("../controller/Products/productFilter");
 const getBySKU = require("../controller/Products/getBySKU");
 const addToCart = require("../controller/Cart/addToCart");
 const getCartItems = require("../controller/Cart/getCartItems");
+const updateCart = require("../controller/Cart/updateCart");
+const deleteFromCart = require("../controller/Cart/deleteFromCart");
 router.get("/", (req, res) => {
   res.send({ result: "The setup of backend server was completed" });
 });
@@ -72,4 +74,6 @@ router.get("/getProduct/:SKU", checkLogin.isAuthenticated, getBySKU.getProduct);
 // Cart API
 router.post("/addToCart", checkLogin.isAuthenticated, addToCart.addProduct);
 router.get("/getCartItems", checkLogin.isAuthenticated, getCartItems.allItems);
+router.post("/updateCart", checkLogin.isAuthenticated, updateCart.update);
+router.post("/deleteCartItem", deleteFromCart.deleteItem);
 module.exports = router;

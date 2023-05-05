@@ -5,7 +5,7 @@ const allItems = async (req, res) => {
     const cartItem = await Cart.find({ UserID: UserID });
     res.send({
       status: "success",
-      data: newCart,
+      data: cartItem,
       message: "Product Added to cart",
     });
   } catch (err) {
