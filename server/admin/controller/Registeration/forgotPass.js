@@ -1,6 +1,7 @@
 const User = require("../../modles/UserData");
 const transporter = require("../../config/connectEmail");
-// let userUrl = `http://localhost:${process.env.FRONTENDPORT}/NewPassword/`;
+const jwt = require("jsonwebtoken");
+const tokenData = require("../../modles/tokenData");
 const resetPass = async (req, res) => {
   const { email } = req.body;
   try {
@@ -8,7 +9,14 @@ const resetPass = async (req, res) => {
     if (isPresentEmail == null) {
       res.send({ status: "fail", message: "This email dosen't exists" });
     } else {
-      let userUrl = `http://localhost:${process.env.FRONTENDPORT}/NewPassword/${isPresentEmail[0]._id}`;
+      const token = jwt.sign(
+        {
+          _id: isPresentEmail[0]._id,
+        },
+        process.env.ACCESS_TOKEN_SECRET,
+        { expiresIn: "15m" }
+      );
+      const userUrl = `http://localhost:${process.env.FRONTENDPORT}/NewPassword/${token}/${isPresentEmail[0]._id}`;
       const mailOptions = {
         from: process.env.EMAIL_USER,
         to: email,

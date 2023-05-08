@@ -1,17 +1,21 @@
 const User = require("../../modles/UserData");
 const bcrypt = require("bcrypt");
+const tokenData = require("../../modles/tokenData");
 const changePassword = async (req, res) => {
-  let { token } = req.params;
+  let { token, id } = req.params;
+  console.log(token, id);
   const { password, confirmPassword } = req.body;
-  console.log(token);
-  if (token) {
-    const userID = token;
-
-    try {
-      const currUser = await User.find({ _id: userID });
-      if (currUser == null) {
-        res.send({ result: "This user dosen't exits.", status: "fail" });
-      }
+  try {
+    const userID = id;
+    const currUser = await User.find({ _id: userID });
+    if (currUser == null) {
+      res.send({ result: "This user dosen't exits.", status: "fail" });
+    }
+    console.log(currUser);
+    const currToken = await tokenData.find({ token: token });
+    if (currToken.length != 0) {
+      res.send({ status: "fair", message: "The link here is expired" });
+    } else {
       if (await bcrypt.compare(password, currUser[0].password)) {
         res.send({
           result: "The new password can't be same as the old one.",
@@ -36,6 +40,11 @@ const changePassword = async (req, res) => {
           password: hashPassword,
         },
       };
+      const newToken = new tokenData({
+        email: currUser[0].email,
+        token: token,
+      });
+      newToken.save();
       const result = await User.updateOne({ _id: userID }, update);
       console.log(result);
       res.send({
@@ -43,11 +52,9 @@ const changePassword = async (req, res) => {
         status: "success ",
         newPass: password,
       });
-    } catch (err) {
-      console.error("Inside catch");
     }
-  } else {
-    res.send({ result: "Please enter a token", status: "fail" });
+  } catch (err) {
+    res.send({ result: `An error has occurred ${err}`, status: "fail" });
   }
 };
 module.exports = { changePassword };

@@ -1,4 +1,5 @@
 const User = require("../../modles/UserData");
+const transporter = require("../../config/connectEmail");
 const bcrypt = require("bcrypt");
 const registerData = async (req, res) => {
   let { firstName, lastName, email, password, confirmPassword, phoneNumber } =
@@ -38,16 +39,37 @@ const registerData = async (req, res) => {
         phoneNumber: phoneNumber,
       });
       newUser.save();
+      try {
+        const mailOptions = {
+          from: process.env.EMAIL_USER,
+          to: email,
+          subject: `Welcome to Fashion Heaven ${firstName}`,
+          text: `Hello Tanish,\nHope you are having a great day.\nWe would like to welcome to you to our website and thanks for registering with us.\nHere are your relevent info you can always change it whenever you want.\nName: ${firstName} ${lastName}\nEmail: ${email}\nPhone Number: ${phoneNumber}`,
+        };
+        transporter.sendMail(mailOptions, (err, info) => {
+          if (err) {
+            res.send({
+              status: "fail",
+              message: `An error has occurred ${err}`,
+            });
+          } else {
+            console.log("Email sent " + info);
+          }
+        });
+      } catch (err) {
+        res.send({
+          status: "fail",
+          message: `A Nodemailer error has occurred: ${err}`,
+        });
+      }
       res.send({
         msg: "Your data is inserted sucessfully",
         data: newUser,
         status: "Sucess",
       });
-      // res.send("Your data is inserted sucessfully");v
     }
   } catch (err) {
     res.send({ status: "fail", message: `An error has occurred ${err}` });
   }
-  //   console.log("Inside the register data route");
 };
 module.exports = { registerData };

@@ -46,7 +46,7 @@ router.get("/failure", (req, res) => {
 
 router.post("/forget", forgetPass.resetPass);
 router.post("/signup", signup.registerData);
-router.post("/reset/:token", newPass.changePassword);
+router.post("/reset/:token/:id", newPass.changePassword);
 // Product API
 router.get(
   "/adminProducts",
