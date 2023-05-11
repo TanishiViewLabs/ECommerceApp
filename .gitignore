@@ -1,2 +1,4 @@
 server/admin/node_modules/
 server/admin/.env
+server/consumer/node_modules/
+server/consumer/.env
