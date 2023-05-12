@@ -23,6 +23,7 @@ const getAllOrders = require("../controller/Order/getAllOrder");
 const getOrderByID = require("../controller/Order/getOrderByID");
 const cancelOrder = require("../controller/Order/cancelOrder");
 const filterOrders = require("../controller/Order/filterOrders");
+const checkOutCart = require("../controller/Cart/checkOutCart");
 router.get("/", (req, res) => {
   res.status(201).send({
     status: "success",
@@ -83,6 +84,7 @@ router.post(
   checkLogin.isAuthenticated,
   deleteFromCart.deleteItem
 );
+router.post("/checkOutCart", checkLogin.isAuthenticated, checkOutCart.buyAll);
 router.post("/updateCart", checkLogin.isAuthenticated, updateCart.update);
 // Order API
 router.post("/addOrder", checkLogin.isAuthenticated, addOrder.buyProduct);
@@ -102,5 +104,9 @@ router.post(
   checkLogin.isAuthenticated,
   cancelOrder.cancelUserOrder
 );
-router.post("/filterOrders/:time?", filterOrders.filterUserOrders); // Always enter in months
+router.post(
+  "/filterOrders",
+  checkLogin.isAuthenticated,
+  filterOrders.filterUserOrders
+);
 module.exports = router;

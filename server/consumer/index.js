@@ -9,7 +9,12 @@ const session = require("express-session");
 const Consumer = require("./models/Consumer");
 const cors = require("cors");
 const bodyParser = require("body-parser");
+const YAML = require("yamljs");
+const swaggerUi = require("swagger-ui-express");
+const swaggerDocument = YAML.load("./routes/swagger.yaml");
 
+// Serve the Swagger UI
+app.use("/api-docs", swaggerUi.serve, swaggerUi.setup(swaggerDocument));
 dotenv.config();
 app.use(express.json());
 app.use(flash());
@@ -37,8 +42,10 @@ initializePassport(
   }
 );
 const PORT = process.env.PORT || 9001;
+const docsURL = `http://localhost:8001/api-docs/`;
 const URL = process.env.MONGOURL;
 connectDB(URL);
 app.listen(PORT, () => {
   console.log(`Server is running on port ${PORT}`);
+  console.log(`API documentation is running at ${docsURL}`);
 });

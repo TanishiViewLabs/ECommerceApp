@@ -21,14 +21,18 @@ const registerData = async (req, res) => {
     const isPresentPhoneNo = await Consumer.find({ phoneNumber: phoneNumber });
     if (isPresentEmail.length != 0) {
       // console.log("Email ALready Present");
-      res.status(400).send({ msg: "Email ALready Present", status: "Fail" });
+      res
+        .status(400)
+        .send({ message: "Email ALready Present", status: "Fail" });
     } else if (isPresentPhoneNo.length != 0) {
       res
         .status(400)
-        .send({ msg: "Phone number Already Present", status: "Fail" });
+        .send({ message: "Phone number Already Present", status: "Fail" });
       // console.log("Phone number Already Present");
     } else if (confirmPassword != password) {
-      res.status(400).send({ msg: "Password dosen't match", status: "Fail" });
+      res
+        .status(400)
+        .send({ message: "Password dosen't match", status: "Fail" });
       // console.log("Password dosen't match");
     } else {
       const newConsumer = new Consumer({

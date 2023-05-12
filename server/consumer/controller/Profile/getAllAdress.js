@@ -3,7 +3,7 @@ const getUserAddress = async (req, res) => {
   const consumerID = req.session.passport.user;
   try {
     const consumerData = await Consumer.findOne({ _id: consumerID });
-    res.send({
+    res.status(200).send({
       status: "success",
       message: `The data is sent successfully`,
       data: consumerData.address,

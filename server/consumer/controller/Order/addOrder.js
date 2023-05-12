@@ -4,12 +4,13 @@ const sendMail = require("../Order/sendEmail");
 const buyProduct = async (req, res) => {
   const { productID, orderDate, size, quantity, color } = req.body;
   const consumerID = req.session.passport.user;
+  const orderDateObj = new Date(orderDate);
   const orderStatus = "Order Confirmed";
   try {
     const newOrder = new Order({
       productID: productID,
       orderStatus: orderStatus,
-      orderDate: new Date(orderDate),
+      orderDate: orderDateObj,
       consumerID: consumerID,
       size: size,
       color: color,
