@@ -3,9 +3,11 @@ const Product = require("../../models/ProductData");
 const getItem = async (req, res) => {
   try {
     const keyword = req.query.keyword;
+    const category = req.query.category;
     // const
     const productSearchData = await Product.find({
       name: { $regex: keyword, $options: "i" },
+      category: { $regex: "Tshirt", $options: "i" },
     });
     let finalProductdata = [];
     for (let i = 0; i < productSearchData.length; i++) {
