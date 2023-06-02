@@ -3,19 +3,17 @@ const bcrypt = require("bcrypt");
 const tokenData = require("../../models/tokenData");
 const resources = require("../../config/resources");
 const changePassword = async (req, res) => {
-  let { token, id } = req.params;
-  const { password, confirmPassword } = req.body;
   try {
+    let { token, id } = req.params;
+    const { password, confirmPassword } = req.body;
     const userID = id;
     const currUser = await Consumer.find({ _id: userID });
-    // console.log(currUser === null);
     let errorFlag = false;
     let errorMessage = "";
     if (currUser.length === 0) {
       errorFlag = true;
       errorMessage = "This user dosen't exits.";
     }
-    // console.log(currUser);
     const currToken = await tokenData.find({ token: token });
     if (currToken.length != 0) {
       errorFlag = true;
@@ -50,7 +48,6 @@ const changePassword = async (req, res) => {
       });
       newToken.save();
       const result = await Consumer.updateOne({ _id: userID }, update);
-      // console.log(result);
     }
     if (errorFlag === true) {
       res.status(400).send({

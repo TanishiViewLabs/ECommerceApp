@@ -1,15 +1,15 @@
 const Order = require("../../models/Order");
-const Product = require("../../models/ProductData");
 const resources = require("../../config/resources");
+const ProductDataServices = require("../../services/ProductDataServices");
 const getUserOrders = async (req, res) => {
-  const consumerID = req.session.passport.user;
   try {
+    const consumerID = req.session.passport.user;
     const userOrders = await Order.find({ consumerID: consumerID });
     let allUserOrder = [];
     for (let i = 0; i < userOrders.length; i++) {
-      const productData = await Product.findOne({
-        _id: userOrders[i].productID,
-      });
+      const productData = await ProductDataServices.getProductByID(
+        userOrders[i].productID
+      );
       let currObj = {};
       currObj.orderID = userOrders[i]._id;
       currObj.name = productData.name;

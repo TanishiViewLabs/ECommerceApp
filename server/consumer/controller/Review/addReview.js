@@ -13,7 +13,10 @@ const addProductReview = async (req, res) => {
       errorSatusMessage = "Bad request you haven't ordered this product";
       errorStatusCode = 400;
     }
-    if (orderData != null && orderData.orderStatus != "Delivered") {
+    if (
+      orderData != null &&
+      orderData.orderStatus != resources.orderPhases.fourth
+    ) {
       errorFlag = false;
       errorSatusMessage =
         "You cannot write a review yet you need the product to be delivered";

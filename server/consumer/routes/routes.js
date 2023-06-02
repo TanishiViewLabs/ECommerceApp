@@ -6,7 +6,7 @@ const Consumer = require("../models/Consumer");
 const forgetPass = require("../controller/Registeration/forgotPass");
 const newPass = require("../controller/Registeration/newPass");
 const productFilter = require("../controller/Products/productFilter");
-const checkLogin = require("../config/checkLogin");
+const checkLogin = require("../middleware/checkLogin");
 const addToCart = require("../controller/Cart/addToCart");
 const getCartItems = require("../controller/Cart/getCartItems");
 const updateCart = require("../controller/Cart/updateCart");
@@ -34,6 +34,7 @@ const getAllReview = require("../controller/Review/getAllReview");
 const deleteReview = require("../controller/Review/deleteReview");
 const updateReview = require("../controller/Review/updateReview");
 const getInvoice = require("../controller/Invoice/getInvoice");
+const stripeBuyOne = require("../controller/Payment/Stripe/singleOrder");
 router.get("/", (req, res) => {
   res.status(201).send({
     status: "success",
@@ -175,5 +176,11 @@ router.get(
   "/consumerInvoice/:orderID?",
   checkLogin.isAuthenticated,
   getInvoice.invoicePdf
+);
+// Payment
+router.post(
+  "/stripeOneOrder",
+  checkLogin.isAuthenticated,
+  stripeBuyOne.userOrder
 );
 module.exports = router;
