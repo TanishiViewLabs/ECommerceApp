@@ -30,9 +30,7 @@ const checkOutCart = require("../controller/Cart/checkOutCart");
 const searchProduct = require("../controller/Products/searchProduct");
 const updateAddress = require("../controller/Profile/updateAddress");
 const addReview = require("../controller/Review/addReview");
-const getAllReview = require("../controller/Review/getAllReview");
 const deleteReview = require("../controller/Review/deleteReview");
-const updateReview = require("../controller/Review/updateReview");
 const getInvoice = require("../controller/Invoice/getInvoice");
 const stripeBuyOne = require("../controller/Payment/Stripe/singleOrder");
 router.get("/", (req, res) => {
@@ -157,19 +155,9 @@ router.post(
   addReview.addProductReview
 );
 router.post(
-  "/getReview",
-  checkLogin.isAuthenticated,
-  getAllReview.getProductReview
-);
-router.post(
   "/deleteReview",
   checkLogin.isAuthenticated,
   deleteReview.deleteProductReview
-);
-router.post(
-  "/updateReview",
-  checkLogin.isAuthenticated,
-  updateReview.updateProductReview
 );
 // Invoice
 router.get(

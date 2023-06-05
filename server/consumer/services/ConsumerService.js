@@ -112,6 +112,28 @@ const newConsumerByObj = async (searchObj) => {
     };
   }
 };
+const saveNewPassword = async (userID, hashPassword) => {
+  const update = {
+    $set: {
+      password: hashPassword,
+    },
+  };
+  const result = await Consumer.updateOne({ _id: userID }, update);
+};
+const findDataByEmail = async (email) => {
+  try {
+    const resutlData = await Consumer.find({ email: email });
+    return {
+      status: resources.status.success,
+      data: resutlData,
+    };
+  } catch (err) {
+    return {
+      status: resources.status.fail,
+      message: resources.messages.error.generic(err),
+    };
+  }
+};
 module.exports = {
   consumerDataByID,
   addAddressByID,
@@ -120,4 +142,6 @@ module.exports = {
   findUserByPhoneNumber,
   updateConsumerByID,
   newConsumerByObj,
+  saveNewPassword,
+  findDataByEmail,
 };

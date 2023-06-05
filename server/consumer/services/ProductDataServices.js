@@ -2,8 +2,18 @@ const resources = require("../config/resources");
 const Product = require("../models/ProductData");
 
 const getProductByID = async (productID) => {
-  const resultData = await Product.findOne({ _id: productID });
-  return resultData;
+  try {
+    const resultData = await Product.findOne({ _id: productID });
+    return {
+      status: resources.status.success,
+      data: resultData,
+    };
+  } catch (err) {
+    return {
+      status: resources.status.fail,
+      message: resources.messages.error.generic(err),
+    };
+  }
 };
 const updateProductByID = async (
   productID,
@@ -129,6 +139,47 @@ const productFilterBySearchObj = async (searchObj) => {
     };
   }
 };
+const productAddReviewByID = async (productID, reviewObj) => {
+  try {
+    const searchData = await Product.findOne({ _id: productID });
+    const reviewData = searchData.reviews;
+    reviewData.push(reviewObj);
+    await searchData.save();
+    return {
+      status: resources.status.success,
+    };
+  } catch (err) {
+    return {
+      status: resources.status.fail,
+      message: resources.messages.error.generic(err),
+    };
+  }
+};
+const deleteReviewByReviewID = async (reviewID, productID) => {
+  try {
+    const productData = await Product.findOne({ _id: productID });
+    const reviewData = productData.reviews;
+    const delIndex = reviewData.find((obj) => obj._id == reviewID);
+    if (delIndex == -1) {
+      return {
+        status: resources.status.fail,
+        message: resources.messages.error.notFound,
+      };
+    } else {
+      reviewData.splice(delIndex, 1);
+      productData.save();
+      return {
+        status: resources.status.success,
+        message: resources.messages.success.deleted,
+      };
+    }
+  } catch (err) {
+    return {
+      status: resources.status.fail,
+      message: resources.messages.error.generic(err),
+    };
+  }
+};
 module.exports = {
   getProductByID,
   updateProductByID,
@@ -139,4 +190,6 @@ module.exports = {
   countDocuments,
   getProductBySKU,
   productFilterBySearchObj,
+  productAddReviewByID,
+  deleteReviewByReviewID,
 };
