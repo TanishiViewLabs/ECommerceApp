@@ -7,7 +7,6 @@ const deleteAddress = require("../controller/Profile/deleteAddres");
 const updateDetailes = require("../controller/Profile/updateInformation");
 const updateAddress = require("../controller/Profile/updateAddress");
 const checkLogin = require("../middleware/checkLogin");
-
 router.get("/getUser", checkLogin.isAuthenticated, getUserProfile.userProfile);
 router.post("/addAddress", checkLogin.isAuthenticated, addAddress.addToProfile);
 router.get(

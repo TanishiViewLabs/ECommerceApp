@@ -7,18 +7,17 @@ const cartRoute = require("./Cart");
 const orderRoute = require("./Order");
 const reviewRoute = require("./Review");
 const paymentRoute = require("./Payment");
-router.use("/register", registerRoute);
-router.use("/profile", profileRoute);
-router.use("/product", productRoute);
-router.use("/cart", cartRoute);
-router.use("/order", orderRoute);
-router.use("/review", reviewRoute);
-router.use("/payment", paymentRoute);
 router.get("/", (req, res) => {
   res.status(201).send({
     status: "success",
     message: "The setup of backend server is successful",
   });
 });
-
+router.use(registerRoute);
+router.use(profileRoute);
+router.use(productRoute);
+router.use(cartRoute);
+router.use(orderRoute);
+router.use(reviewRoute);
+router.use(paymentRoute);
 module.exports = router;

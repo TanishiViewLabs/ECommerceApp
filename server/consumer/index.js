@@ -11,8 +11,6 @@ const bodyParser = require("body-parser");
 const YAML = require("yamljs");
 const swaggerUi = require("swagger-ui-express");
 const swaggerDocument = YAML.load("./API/swagger.yaml");
-
-// Serve the Swagger UI
 app.use("/api-docs", swaggerUi.serve, swaggerUi.setup(swaggerDocument));
 dotenv.config();
 app.use(express.json());

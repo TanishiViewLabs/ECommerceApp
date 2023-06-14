@@ -7,7 +7,6 @@ const getOrderByID = require("../controller/Order/getOrderByID");
 const cancelOrder = require("../controller/Order/cancelOrder");
 const filterOrders = require("../controller/Order/filterOrders");
 const checkLogin = require("../middleware/checkLogin");
-
 router.post("/addOrder", checkLogin.isAuthenticated, addOrder.buyProduct);
 router.post("/updateOrder", checkLogin.isAuthenticated, updateOrder.updateData);
 router.get(

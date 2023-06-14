@@ -6,7 +6,6 @@ const updateCart = require("../controller/Cart/updateCart");
 const deleteFromCart = require("../controller/Cart/deleteFromCart");
 const checkOutCart = require("../controller/Cart/checkOutCart");
 const checkLogin = require("../middleware/checkLogin");
-
 router.post("/addToCart", checkLogin.isAuthenticated, addToCart.addProduct);
 router.get("/getCartItems", checkLogin.isAuthenticated, getCartItems.allItems);
 router.post(
