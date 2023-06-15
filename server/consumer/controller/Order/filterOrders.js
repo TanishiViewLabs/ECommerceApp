@@ -1,9 +1,8 @@
-const Order = require("../../models/Order");
 const resources = require("../../config/resources");
 const OrderService = require("../../services/OrderServices");
 const filterUserOrders = async (req, res) => {
   try {
-    const { filterMonth, filterYear } = req.body;
+    const { filterMonth, filterYear, keyword } = req.query;
     const consumerID = req.session.passport.user;
     let currDate = new Date();
     if (filterMonth.length == 0) {
@@ -13,6 +12,7 @@ const filterUserOrders = async (req, res) => {
       const searchObj = {
         consumerID: consumerID,
         orderDate: { $lt: endDate, $gt: startDate },
+        name: { $regex: keyword, $options: "i" },
       };
       const OrderdataRequest = await OrderService.findOrderByIDandObject(
         searchObj

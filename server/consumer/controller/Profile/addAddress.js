@@ -45,7 +45,7 @@ const addToProfile = async (req, res) => {
         res.status(201).send({
           status: resources.status.success,
           message: resources.messages.success.updated,
-          data: updatedData,
+          data: addressData,
         });
       }
     }

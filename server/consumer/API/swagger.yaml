@@ -34,7 +34,21 @@ paths:
         content:
           application/json:
             schema:
-              $ref: "#/components/schemas/ConsumerRequest"
+              type: object
+              properties:
+                firstName:
+                  type: string
+                lastName:
+                  type: string
+                email:
+                  type: string
+                  format: email
+                password:
+                  type: string
+                confirmPassword:
+                  type: string
+                phoneNumber:
+                  type: string
       responses:
         "200":
           description: Successful operation
@@ -95,7 +109,6 @@ paths:
                   type: string
                 password:
                   type: string
-        required: true
       responses:
         "200":
           description: Successful operation
@@ -217,7 +230,12 @@ paths:
         content:
           application/json:
             schema:
-              $ref: "#/components/schemas/NewPasswordRequest"
+              type: object
+              properties:
+                password:
+                  type: string
+                confirmPassword:
+                  type: string
       responses:
         "200":
           description: Successful operation
@@ -378,13 +396,48 @@ paths:
           content:
             application/json:
               schema:
-                $ref: "#/components/schemas/ConsumerResponse"
+                type: object
+                properties:
+                  status:
+                    type: string
+                    example: success
+                  message:
+                    type: string
+                    example: Resource updated successfully.
+                  data:
+                    type: object
+                    properties:
+                      country:
+                        type: string
+                        example: Inddgiwa6
+                      state:
+                        type: string
+                        example: q
+                      city:
+                        type: string
+                        example: dd
+                      zipCode:
+                        type: integer
+                        example: 123
+                      addressLine1:
+                        type: string
+                        example: ff
+                      addressLine2:
+                        type: string
+                        example: gg
         "400":
           description: Created
           content:
             application/json:
               schema:
-                $ref: "#/components/schemas/ConsumerResponse"
+                type: object
+                properties:
+                  status:
+                    type: string
+                    example: fail
+                  message:
+                    type: string
+                    example: This address is already present. Please try again.
         "500":
           description: Internal sever error
           content:
@@ -403,14 +456,25 @@ paths:
         content:
           application/json:
             schema:
-              $ref: "#/components/schemas/deleteAddressRequest"
+              type: object
+              properties:
+                addressID:
+                  type: string
+                  example: 648847fed08ba57bce246add
       responses:
         "201":
           description: Created
           content:
             application/json:
               schema:
-                $ref: "#/components/schemas/ConsumerResponse"
+                type: object
+                properties:
+                  status:
+                    type: string
+                    example: success
+                  message:
+                    type: string
+                    example: Resource deleted successfully.
         "500":
           description: Internal sever error
           content:
@@ -429,14 +493,30 @@ paths:
         content:
           application/json:
             schema:
-              $ref: "#/components/schemas/updateConsumerRequest"
+              type: object
+              properties:
+                firstName:
+                  type: string
+                lastName:
+                  type: string
+                email:
+                  type: string
+                phoneNumber:
+                  type: string
+                age:
+                  type: string
       responses:
         "201":
           description: Created
           content:
             application/json:
               schema:
-                $ref: "#/components/schemas/ConsumerResponse"
+                type: object
+                properties:
+                  status:
+                    type: string
+                  message:
+                    type: string
         "500":
           description: Internal sever error
           content:
@@ -456,14 +536,62 @@ paths:
         content:
           application/json:
             schema:
-              $ref: "#/components/schemas/addToCartRequest"
+              type: object
+              properties:
+                productID:
+                  type: string
+                  example: "Pink"
+                color:
+                  type: string
+                  example: "Green"
+                size:
+                  type: string
+                  example: "123@email.com"
       responses:
         "201":
           description: Created
           content:
             application/json:
               schema:
-                $ref: "#/components/schemas/addToCartResponse"
+                type: object
+                properties:
+                  status:
+                    type: string
+                    example: success
+                  data:
+                    type: object
+                    properties:
+                      productID:
+                        type: string
+                        example: 64747d5cb8a484ee082d3cce
+                      consumerID:
+                        type: string
+                        example: 6489a0899ac46cd0ab5dd74d
+                      size:
+                        type: string
+                        example: XL
+                      quantity:
+                        type: integer
+                        example: 1
+                      color:
+                        type: string
+                        example: Red
+                      _id:
+                        type: string
+                        example: 648abb04b1a065bcbbd8760b
+        "404":
+          description: Resource not found
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  status:
+                    type: string
+                    example: "fail"
+                  message:
+                    type: string
+                    example: "Resource not found."
         "500":
           description: Internal sever error
           content:
@@ -483,7 +611,37 @@ paths:
           content:
             application/json:
               schema:
-                $ref: "#/components/schemas/getCartItemsResponse"
+                type: object
+                properties:
+                  status:
+                    type: string
+                    example: success
+                  productData:
+                    type: array
+                    items:
+                      type: object
+                      properties:
+                        productID:
+                          type: string
+                          example: 64747d5cb8a484ee082d3cce
+                        name:
+                          type: string
+                          example: Water Shoes
+                        price:
+                          type: number
+                          example: 650
+                        image:
+                          type: string
+                          example: public\\assets\\1685355868506-Untitled design.jpg
+                        size:
+                          type: string
+                          example: XL
+                  message:
+                    type: string
+                    example: Here is the resource data you wanted
+                  subTotal:
+                    type: number
+                    example: 650
         "500":
           description: Internal sever error
           content:
@@ -502,7 +660,10 @@ paths:
         content:
           application/json:
             schema:
-              $ref: "#/components/schemas/deleteCartItemRequest"
+              type: object
+              properties:
+                cartItemID:
+                  type: string
       responses:
         "201":
           description: Created
@@ -536,14 +697,43 @@ paths:
         content:
           application/json:
             schema:
-              $ref: "#/components/schemas/updateCartRequest"
+              type: object
+              properties:
+                productID:
+                  type: string
+                size:
+                  type: string
+                quantity:
+                  type: integer
       responses:
         "201":
           description: Created
           content:
             application/json:
               schema:
-                $ref: "#/components/schemas/updateCartResponse"
+                type: object
+                properties:
+                  status:
+                    type: string
+                    example: success
+                  data:
+                    type: object
+                    properties:
+                      acknowledged:
+                        type: boolean
+                        example: true
+                      modifiedCount:
+                        type: integer
+                        example: 0
+                      upsertedId:
+                        type: string
+                        nullable: true
+                      upsertedCount:
+                        type: integer
+                        example: 0
+                      matchedCount:
+                        type: integer
+                        example: 0
         "400":
           description: No stock remaining
           content:
@@ -570,7 +760,40 @@ paths:
           content:
             application/json:
               schema:
-                $ref: "#/components/schemas/checkOutCartResponse"
+                type: object
+                properties:
+                  status:
+                    type: string
+                    example: success
+                  message:
+                    type: string
+                    example: All the cart items have been ordered
+                  orderedItems:
+                    type: array
+                    items:
+                      type: object
+                      properties:
+                        _id:
+                          type: string
+                          example: 648abb04b1a065bcbbd8760b
+                        productID:
+                          type: string
+                          example: 64747d5cb8a484ee082d3cce
+                        consumerID:
+                          type: string
+                          example: 6489a0899ac46cd0ab5dd74d
+                        size:
+                          type: string
+                          example: XL
+                        quantity:
+                          type: integer
+                          example: 1
+                        color:
+                          type: string
+                          example: Red
+                        __v:
+                          type: integer
+                          example: 0
         "400":
           description: No stock remaining
           content:
@@ -597,48 +820,98 @@ paths:
         content:
           application/json:
             schema:
-              $ref: "#/components/schemas/addOrderRequest"
+              type: object
+              properties:
+                productID:
+                  type: string
+                size:
+                  type: string
+                quantity:
+                  type: integer
+                name:
+                  type: string
+                color:
+                  type: string
       responses:
         "201":
           description: Created
           content:
             application/json:
               schema:
-                $ref: "#/components/schemas/addOrderRequestSchema"
+                type: object
+                properties:
+                  status:
+                    type: string
+                    example: "success"
+                  message:
+                    type: string
+                    example: "Your order is added successfully"
+                  data:
+                    type: object
+                    properties:
+                      productID:
+                        type: string
+                        example: "647476d4b8a484ee082d3cad"
+                      orderDate:
+                        type: string
+                        format: date-time
+                        example: "2023-06-15T04:09:35.330Z"
+                      orderStatus:
+                        type: string
+                        example: "Order Confirmed"
+                      consumerID:
+                        type: string
+                        example: "6489a0899ac46cd0ab5dd74d"
+                      name:
+                        type: string
+                        example: "Ramen Pants"
+                      size:
+                        type: string
+                        example: "XL"
+                      quantity:
+                        type: integer
+                        example: 13
+                      color:
+                        type: string
+                        example: "Red"
+                      address:
+                        type: object
+                        properties:
+                          country:
+                            type: string
+                            example: "India"
+                          state:
+                            type: string
+                            example: "Gujarat"
+                          city:
+                            type: string
+                            example: "Ahmedabad"
+                          zipCode:
+                            type: integer
+                            example: 390123
+                          addressLine1:
+                            type: string
+                            example: "Ad-1"
+                          addressLine2:
+                            type: string
+                            example: "Ad-2"
+                          _id:
+                            type: string
+                            example: "6489a09c9ac46cd0ab5dd758"
+                      _id:
+                        type: string
+                        example: "648a8effe77921af18a958f3"
+                      __v:
+                        type: integer
+                        example: 0
         "400":
           description: The item is not avalaible
           content:
             application/json:
               example:
-                message: "Product out of stock. Remaining items product.quantity"
+                message: "Resouce not found"
                 status: "fail"
 
-        "500":
-          description: Internal sever error
-          content:
-            application/json:
-              example:
-                message: "A server error has occurred"
-                status: "Fail"
-  /updateOrder:
-    post:
-      tags:
-        - Order
-      summary: Add Address for user
-      description: User can add address
-      requestBody:
-        description: Enter the address
-        content:
-          application/json:
-            schema:
-              $ref: "#/components/schemas/updateOrderRequest"
-      responses:
-        "201":
-          description: Created
-          content:
-            application/json:
-              schema:
-                $ref: "#/components/schemas/addOrderRequestSchema"
         "500":
           description: Internal sever error
           content:
@@ -658,7 +931,35 @@ paths:
           content:
             application/json:
               schema:
-                $ref: "#/components/schemas/getAllOrdersResponse"
+                type: object
+                properties:
+                  status:
+                    type: string
+                    example: "success"
+                  message:
+                    type: string
+                    example: "Here are all the orders"
+                  data:
+                    type: array
+                    items:
+                      type: object
+                      properties:
+                        orderID:
+                          type: string
+                          example: "6489a127925d714f7104d956"
+                        name:
+                          type: string
+                          example: "Ramen Tshirt"
+                        orderDate:
+                          type: string
+                          format: date-time
+                          example: "2023-06-14T11:14:47.830Z"
+                        image:
+                          type: string
+                          example: "public\\assets\\1685354196040-1.jpg"
+                        orderStatus:
+                          type: string
+                          example: "Order Confirmed"
         "500":
           description: Internal sever error
           content:
@@ -687,7 +988,139 @@ paths:
           content:
             application/json:
               schema:
-                $ref: "#/components/schemas/getOrderByIDResponse"
+                type: object
+                properties:
+                  status:
+                    type: string
+                    example: "success"
+                  message:
+                    type: string
+                    example: "Here is the data of the order"
+                  data:
+                    type: object
+                    properties:
+                      orderDate:
+                        type: string
+                        format: date-time
+                        example: "2023-04-04T18:30:00.000Z"
+                      orderStatus:
+                        type: string
+                        example: "Cancelled"
+                      consumerId:
+                        type: string
+                        example: "647985f9888e2f9af25e00e8"
+                      quantity:
+                        type: integer
+                        example: 3
+                      size:
+                        type: string
+                        example: "XL"
+                      color:
+                        type: string
+                        example: "Red"
+                      productData:
+                        type: object
+                        properties:
+                          status:
+                            type: string
+                            example: "success"
+                          data:
+                            type: object
+                            properties:
+                              _id:
+                                type: string
+                                example: "647476d4b8a484ee082d3cad"
+                              name:
+                                type: string
+                                example: "Ramen Tshirt"
+                              price:
+                                type: integer
+                                example: 500
+                              size:
+                                type: array
+                                items:
+                                  type: string
+                                  enum:
+                                    - "L"
+                                    - "XL"
+                                    - "S"
+                                    - "M"
+                                example: ["L", "XL", "S", "M"]
+                              SKU:
+                                type: string
+                                example: "51784"
+                              productDetails:
+                                type: string
+                                example: "Ramen is good"
+                              image:
+                                type: string
+                                example: "public\\assets\\1685354196040-1.jpg"
+                              quantity:
+                                type: integer
+                                example: 6961
+                              category:
+                                type: string
+                                example: "Tshirt"
+                              color:
+                                type: array
+                                items:
+                                  type: string
+                                  enum:
+                                    - "Blue"
+                                    - "Red"
+                                    - "Yellow"
+                                example: ["Blue", "Red", "Yellow"]
+                              audience:
+                                type: string
+                                example: "Boys"
+                              adminId:
+                                type: string
+                                example: "647476c8b8a484ee082d3ca7"
+                              date:
+                                type: string
+                                example: "29/05/2023"
+                              reviews:
+                                type: array
+                                items:
+                                  type: object
+                                  properties:
+                                    rating:
+                                      type: number
+                                      example: 9.8
+                                    reviewDescription:
+                                      type: string
+                                      example: "d1d11"
+                                    consumerID:
+                                      type: string
+                                      example: "647985f9888e2f9af25e00e8"
+                                    _id:
+                                      type: string
+                                      example: "6479e1d25c88bb97d1154b33"
+                                example:
+                                  - rating: 9.8
+                                    reviewDescription: "d1d11"
+                                    consumerID: "647985f9888e2f9af25e00e8"
+                                    _id: "6479e1d25c88bb97d1154b33"
+                                  - rating: 9.8
+                                    reviewDescription: "d1d11"
+                                    consumerID: "647985f9888e2f9af25e00e8"
+                                    _id: "647d602a1b51eba91d6c2cc1"
+                              __v:
+                                type: integer
+                                example: 8
+        "404":
+          description: Resource not found
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  status:
+                    type: string
+                    example: "fail"
+                  message:
+                    type: string
+                    example: "Resource not found."
         "500":
           description: Internal sever error
           content:
@@ -711,13 +1144,32 @@ paths:
                 orderID:
                   type: string
       responses:
-        "201":
-          description: Created
+        "200":
+          description: Order cancellation successful
           content:
             application/json:
-              example:
-                message: "Product in cart with Cart ID: cartItemID is Deleted"
-                status: "success"
+              schema:
+                type: object
+                properties:
+                  status:
+                    type: string
+                    example: "success"
+                  message:
+                    type: string
+                    example: "Order with Order ID 6479b35e4ccda8bda1507a1c is cancelled."
+        "404":
+          description: Resource not found
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  status:
+                    type: string
+                    example: "fail"
+                  message:
+                    type: string
+                    example: "Resource not found."
         "500":
           description: Internal sever error
           content:
@@ -770,11 +1222,16 @@ paths:
           application/json:
             schema:
               type: object
-            example:
-              productID: "f021mqdnj131ndw22"
-              reviewDescription: "Hello"
-              orderID: "p0123m5qdnj131ndw22"
-              rating: 6.7
+              properties:
+                productID:
+                  type: string
+                orderID:
+                  type: string
+                reviewDescription:
+                  type: string
+                rating:
+                  type: number
+                  example: 5.7
       responses:
         "201":
           description: Created
@@ -840,86 +1297,6 @@ paths:
               example:
                 message: "A server error has occurred"
                 status: "Fail"
-  /updateReview:
-    post:
-      tags:
-        - Review
-      summary: Update Review for Product
-      description: User can update Review to the product
-      requestBody:
-        description: Enter the detailes
-        content:
-          application/json:
-            schema:
-              type: object
-            example:
-              reviewID: "f021mqdnj131ndw22"
-              productID: "ghsqenion123wu78"
-              reviewDescription: "This is the updated review"
-              rating: 7.1
-      responses:
-        "201":
-          description: Created
-          content:
-            application/json:
-              schema:
-                type: object
-              example:
-                status: "success"
-                message: "Resource updated successfully."
-        "400":
-          description: The item is not avalaible
-          content:
-            application/json:
-              example:
-                message: "This review ID is incorrect"
-                status: "fail"
-
-        "500":
-          description: Internal sever error
-          content:
-            application/json:
-              example:
-                message: "A server error has occurred"
-                status: "Fail"
-  /getReview:
-    post:
-      tags:
-        - Review
-      summary: Get All Review for Product
-      description: You can get Review to the product
-      requestBody:
-        description: Enter the detailes
-        content:
-          application/json:
-            schema:
-              type: object
-            example:
-              productID: "f021mqdnj131ndw22"
-      responses:
-        "201":
-          description: Created
-          content:
-            application/json:
-              schema:
-                type: array
-                items:
-                  $ref: "#/components/schemas/getReviewResponse"
-        "400":
-          description: The item is not avalaible
-          content:
-            application/json:
-              example:
-                message: "This product dosen't exits"
-                status: "fail"
-
-        "500":
-          description: Internal sever error
-          content:
-            application/json:
-              example:
-                message: "A server error has occurred"
-                status: "Fail"
   # Product Review
   /getBySKU:
     post:
@@ -936,14 +1313,91 @@ paths:
             example:
               SKU: "17625"
       responses:
-        "201":
-          description: Created
+        "200":
+          description: Successful response
           content:
             application/json:
               schema:
-                type: array
-                items:
-                  $ref: "#/components/schemas/getBySKUResponse"
+                type: object
+                properties:
+                  status:
+                    type: string
+                    example: success
+                  message:
+                    type: string
+                    example: Here is the product data you want
+                  data:
+                    type: object
+                    properties:
+                      _id:
+                        type: string
+                        example: 647476d4b8a484ee082d3cad
+                      name:
+                        type: string
+                        example: Ramen Tshirt
+                      price:
+                        type: number
+                        format: float
+                        example: 500
+                      size:
+                        type: array
+                        items:
+                          type: string
+                        example:
+                          - L
+                          - XL
+                          - S
+                          - M
+                      SKU:
+                        type: string
+                        example: 51784
+                      productDetails:
+                        type: string
+                        example: Ramen is good
+                      image:
+                        type: string
+                        example: public\\assets\\1685354196040-1.jpg
+                      quantity:
+                        type: number
+                        example: 6906
+                      category:
+                        type: string
+                        example: Tshirt
+                      color:
+                        type: array
+                        items:
+                          type: string
+                        example:
+                          - Blue
+                          - Red
+                          - Yellow
+                      audience:
+                        type: string
+                        example: Boys
+                      adminId:
+                        type: string
+                        example: 647476c8b8a484ee082d3ca7
+                      date:
+                        type: string
+                        example: 29/05/2023
+                      reviews:
+                        type: array
+                        items:
+                          type: object
+                          properties:
+                            rating:
+                              type: number
+                              format: float
+                              example: 9.8
+                            reviewDescription:
+                              type: string
+                              example: d1d11
+                            consumerID:
+                              type: string
+                              example: 647985f9888e2f9af25e00e8
+                            _id:
+                              type: string
+                              example: 6479e1d25c88bb97d1154b33
         "400":
           description: The item is not avalaible
           content:
@@ -978,18 +1432,157 @@ paths:
       description: Try to get all the product in the feed
       responses:
         "200":
-          description: Successful operation
+          description: Successful response
           content:
             application/json:
               schema:
-                $ref: "#/components/schemas/getByProductResponse"
-        "400":
-          description: The item is not avalaible
+                type: object
+                properties:
+                  status:
+                    type: string
+                    example: success
+                  message:
+                    type: string
+                    example: Here is the resource data you wanted
+                  data:
+                    type: object
+                    properties:
+                      result:
+                        type: array
+                        items:
+                          type: object
+                          properties:
+                            SKU:
+                              type: string
+                              example: 49188
+                            name:
+                              type: string
+                              example: Ramen Pants
+                            price:
+                              type: number
+                              format: float
+                              example: 750
+                            image:
+                              type: string
+                              example: public\\assets\\1685354277872-8-aDHOn1k83nBQNSB.png
+        "500":
+          description: Internal sever error
           content:
             application/json:
               example:
-                message: "Unauthorized access."
-                status: "fail"
+                message: "A server error has occurred"
+                status: "Fail"
+  /feedProductsPrice/page/limit:
+    get:
+      parameters:
+        - name: page
+          in: query
+          description: Page number
+          schema:
+            type: integer
+        - name: limit
+          in: query
+          description: Number of items per page
+          schema:
+            type: integer
+      tags:
+        - Product
+      summary: Get Feed Porduct
+      description: Try to get all the product in the feed
+      responses:
+        "200":
+          description: Successful response
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  status:
+                    type: string
+                    example: success
+                  message:
+                    type: string
+                    example: Here is the resource data you wanted
+                  data:
+                    type: object
+                    properties:
+                      result:
+                        type: array
+                        items:
+                          type: object
+                          properties:
+                            SKU:
+                              type: string
+                              example: 49188
+                            name:
+                              type: string
+                              example: Ramen Pants
+                            price:
+                              type: number
+                              format: float
+                              example: 750
+                            image:
+                              type: string
+                              example: public\\assets\\1685354277872-8-aDHOn1k83nBQNSB.png
+        "500":
+          description: Internal sever error
+          content:
+            application/json:
+              example:
+                message: "A server error has occurred"
+                status: "Fail"
+  /feedProductsRating/page/limit:
+    get:
+      parameters:
+        - name: page
+          in: query
+          description: Page number
+          schema:
+            type: integer
+        - name: limit
+          in: query
+          description: Number of items per page
+          schema:
+            type: integer
+      tags:
+        - Product
+      summary: Get Feed Porduct
+      description: Try to get all the product in the feed
+      responses:
+        "200":
+          description: Successful response
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  status:
+                    type: string
+                    example: success
+                  message:
+                    type: string
+                    example: Here is the resource data you wanted
+                  data:
+                    type: object
+                    properties:
+                      result:
+                        type: array
+                        items:
+                          type: object
+                          properties:
+                            SKU:
+                              type: string
+                              example: 49188
+                            name:
+                              type: string
+                              example: Ramen Pants
+                            price:
+                              type: number
+                              format: float
+                              example: 750
+                            image:
+                              type: string
+                              example: public\\assets\\1685354277872-8-aDHOn1k83nBQNSB.png
         "500":
           description: Internal sever error
           content:
@@ -1086,7 +1679,27 @@ paths:
           content:
             application/json:
               schema:
-                $ref: "#/components/schemas/filterProductResponse"
+                type: object
+                properties:
+                  status:
+                    type: string
+                    example: Here is the resource data you wanted
+                  message:
+                    type: string
+                    example: Here is your data that you needed
+                  data:
+                    type: array
+                    items:
+                      type: object
+                      properties:
+                        SKU:
+                          type: string
+                        name:
+                          type: string
+                        image:
+                          type: string
+                        price:
+                          type: number
         "400":
           description: The item is not avalaible
           content:
@@ -1101,428 +1714,3 @@ paths:
               example:
                 message: "A server error has occurred"
                 status: "Fail"
-components:
-  schemas:
-    AddressSchema:
-      type: object
-      properties:
-        country:
-          type: string
-        state:
-          type: string
-        city:
-          type: string
-        zipCode:
-          type: integer
-        addressLine1:
-          type: string
-        addressLine2:
-          type: string
-    updateCartSchema:
-      type: object
-      properties:
-        acknowledged:
-          type: string
-        modifiedCount:
-          type: integer
-        upsertedId:
-          type: string
-        upsertedCount:
-          type: integer
-        matchedCount:
-          type: integer
-    checkOutCartSchema:
-      type: object
-      properties:
-        productID:
-          type: string
-        orderDate:
-          type: string
-        orderStatus:
-          type: string
-        consumerID:
-          type: string
-        size:
-          type: string
-        quantity:
-          type: integer
-        color:
-          type: string
-    addOrderRequestSchema:
-      type: object
-      properties:
-        productID:
-          type: string
-        orderDate:
-          type: string
-        size:
-          type: string
-        quantity:
-          type: integer
-        color:
-          type: string
-    # Consumer API Schema
-    ConsumerResponse:
-      type: object
-      properties:
-        message:
-          type: string
-        data:
-          $ref: "#/components/schemas/ConsumerResponseObj"
-        status:
-          type: string
-    ConsumerResponseObj:
-      type: object
-      properties:
-        firstName:
-          type: string
-        lastName:
-          type: string
-        email:
-          type: string
-        password:
-          type: string
-        phoneNumber:
-          type: string
-        _id:
-          type: string
-        address:
-          type: array
-          items:
-            type: object
-    ConsumerRequest:
-      type: object
-      properties:
-        firstName:
-          type: string
-          example: Pink
-        lastName:
-          type: string
-          example: Sharma
-        email:
-          type: string
-          example: Pink123@gmail.com
-        password:
-          type: string
-        confirmPassword:
-          type: string
-        phoneNumber:
-          type: integer
-          format: int64
-          example: 9874563564
-    ConsumerLoginRequest:
-      type: object
-      properties:
-        email:
-          type: string
-          example: Example@email.com
-        password:
-          type: string
-    ConsumerForgotRequest:
-      type: object
-      properties:
-        email:
-          type: string
-          example: Example@email.com
-    NewPasswordRequest:
-      type: object
-      properties:
-        password:
-          type: string
-          example: password
-        confirmPassword:
-          type: string
-          example: password
-    deleteAddressRequest:
-      type: object
-      properties:
-        addressID:
-          type: string
-          example: "1231414"
-    updateConsumerRequest:
-      type: object
-      properties:
-        firstName:
-          type: string
-          example: "Pink"
-        lasttName:
-          type: string
-          example: "Green"
-        email:
-          type: string
-          example: "123@email.com"
-        phoneNumber:
-          type: string
-          example: "929292929"
-        age:
-          type: string
-          example: "32"
-    # Cart API Schema
-    addToCartRequest:
-      type: object
-      properties:
-        productID:
-          type: string
-          example: "Pink"
-        color:
-          type: string
-          example: "Green"
-        size:
-          type: string
-          example: "123@email.com"
-    addToCartResponse:
-      type: object
-      properties:
-        productID:
-          type: string
-          example: "Pink"
-        consumerID:
-          type: string
-          example: "Green"
-        size:
-          type: string
-          example: "123@email.com"
-        quantity:
-          type: integer
-          example: 12
-        _id:
-          type: string
-          example: "123"
-    getCartItemsResponse:
-      type: object
-      properties:
-        status:
-          type: string
-          example: "success"
-        schema:
-          type: array
-          items:
-            $ref: "#/components/schemas/addToCartResponse"
-        message:
-          type: string
-          example: "Here are all the product in your cart"
-        subTotal:
-          type: integer
-          example: "134"
-    deleteCartItemRequest:
-      type: object
-      properties:
-        cartItemID:
-          type: string
-          example: "Cart ID"
-    updateCartRequest:
-      type: object
-      properties:
-        productID:
-          type: string
-          example: "131u11f1f6bcva"
-        size:
-          type: string
-          example: "XL"
-        quantity:
-          type: integer
-          example: 1
-    updateCartResponse:
-      type: object
-      properties:
-        status:
-          type: string
-          example: "success"
-        data:
-          type: array
-          items:
-            $ref: "#/components/schemas/updateCartSchema"
-        message:
-          type: string
-    checkOutCartResponse:
-      type: object
-      properties:
-        status:
-          type: string
-          example: "success"
-        orderedItems:
-          type: array
-          items:
-            $ref: "#/components/schemas/checkOutCartSchema"
-        message:
-          type: string
-    # Order API schema
-    addOrderRequest:
-      type: object
-      properties:
-        productID:
-          type: string
-        orderDate:
-          type: string
-        size:
-          type: string
-        quantity:
-          type: integer
-        color:
-          type: string
-    updateOrderRequest:
-      type: object
-      properties:
-        orderID:
-          type: string
-        orderStatus:
-          type: string
-    getAllOrdersResponse:
-      type: array
-      items:
-        type: object
-        properties:
-          orderID:
-            type: string
-          name:
-            type: string
-          orderDate:
-            type: string
-          image:
-            type: string
-          orderStatus:
-            type: string
-    getOrderByIDResponse:
-      type: object
-      properties:
-        orderDate:
-          type: string
-        orderStatus:
-          type: string
-        consumeId:
-          type: string
-        quantity:
-          type: integer
-        size:
-          type: string
-        color:
-          type: string
-        productData:
-          type: string
-    # Review
-    getReviewResponse:
-      type: object
-      properties:
-        rating:
-          type: string
-        reviewDescription:
-          type: string
-        consumerID:
-          type: string
-        _id:
-          type: string
-    # Product
-    getBySKUResponse:
-      type: object
-      properties:
-        status:
-          type: string
-        message:
-          type: string
-        data:
-          type: object
-          properties:
-            _id:
-              type: string
-            name:
-              type: string
-            price:
-              type: integer
-            size:
-              type: array
-              items:
-                type: string
-            SKU:
-              type: string
-            productDetails:
-              type: string
-            image:
-              type: string
-            quantity:
-              type: integer
-            color:
-              type: array
-              items:
-                type: string
-            audience:
-              type: string
-            adminId:
-              type: string
-            date:
-              type: string
-            reviews:
-              type: array
-              items:
-                $ref: "#/components/schemas/getReviewResponse"
-            __v:
-              type: integer
-    getByProductResponse:
-      type: object
-      properties:
-        status:
-          type: string
-        message:
-          type: string
-        data:
-          type: object
-          properties:
-            next:
-              type: object
-              properties:
-                page:
-                  type: integer
-                limit:
-                  type: integer
-            previous:
-              type: object
-              properties:
-                page:
-                  type: integer
-                limit:
-                  type: integer
-            result:
-              type: array
-              items:
-                type: object
-                properties:
-                  SKU:
-                    type: string
-                  name:
-                    type: string
-                  price:
-                    type: number
-                  image:
-                    type: string
-            totalData:
-              type: integer
-    ResourceItemFilterProduct:
-      type: object
-      properties:
-        SKU:
-          type: string
-        name:
-          type: string
-        image:
-          type: string
-        price:
-          type: number
-      required:
-        - SKU
-        - name
-        - image
-        - price
-    filterProductResponse:
-      type: object
-      properties:
-        status:
-          type: string
-        message:
-          type: string
-        data:
-          type: array
-          items:
-            $ref: "#/components/schemas/ResourceItemFilterProduct"
-      required:
-        - status
-        - message
-        - data

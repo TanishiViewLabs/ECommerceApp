@@ -32,6 +32,9 @@ const orderSchema = new mongoose.Schema({
   consumerID: {
     type: String,
   },
+  name: {
+    type: String,
+  },
   size: {
     type: String,
   },

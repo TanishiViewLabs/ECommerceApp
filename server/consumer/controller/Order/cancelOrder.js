@@ -10,32 +10,44 @@ const cancelUserOrder = async (req, res) => {
       orderStatus: resources.orderPhases.cancel,
     });
     if (orderDataRequest.status == resources.status.fail) {
-      res.status(500).send({
+      return res.status(500).send({
         status: resources.status.fail,
         message: orderDataRequest.message,
       });
-    } else {
-      const orderData = orderDataRequest.data;
-      if (orderData == null) {
-        res.status(400).send({
-          status: resources.status.fail,
-          message: resources.messages.error.notFound,
-        });
-      } else {
-        const productID = orderData.productID;
-        const ProductData = await ProductDataServices.getProductByID(productID);
-        await ProductDataServices.updateProductAddProduct(
-          productID,
-          ProductData.quantity,
-          orderData.quantity
-        );
-        sendEmail(req.session.passport.user, "cancelled");
-        res.status(200).send({
-          status: resources.status.success,
-          message: `Order with Order ID ${orderID} is cancelled  `,
-        });
-      }
     }
+    const orderData = orderDataRequest.data;
+    if (orderData == null) {
+      return res.status(400).send({
+        status: resources.status.fail,
+        message: resources.messages.error.notFound,
+      });
+    }
+    const productID = orderData.productID;
+    const ProductDataRequest = await ProductDataServices.getProductByID(
+      productID
+    );
+    if (ProductDataRequest.status == resources.status.fail) {
+      return res.status(500).send({
+        status: resources.status.fail,
+        message: ProductDataRequest.message,
+      });
+    }
+    const updateDataRequest = await ProductDataServices.updateProductAddQty(
+      productID,
+      orderData.quantity,
+      ProductDataRequest.data.quantity
+    );
+    if (updateDataRequest.status == resources.status.fail) {
+      return res.status(500).send({
+        status: resources.status.fail,
+        message: updateDataRequest.message,
+      });
+    }
+    sendEmail(req.session.passport.user, "cancelled");
+    res.status(200).send({
+      status: resources.status.success,
+      message: `Order with Order ID ${orderID} is cancelled  `,
+    });
   } catch (err) {
     res.status(500).send({
       status: resources.status.fail,

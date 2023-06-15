@@ -20,21 +20,41 @@ const updateProductQtyByID = async (
   productDataQuantity,
   inStockItemsQuantity
 ) => {
-  const resultData = await Product.updateOne(
-    { _id: productID },
-    { quantity: productDataQuantity - inStockItemsQuantity }
-  );
-  return resultData;
+  try {
+    const resultData = await Product.updateOne(
+      { _id: productID },
+      { quantity: productDataQuantity - inStockItemsQuantity }
+    );
+    return {
+      status: resources.status.success,
+      data: resultData,
+    };
+  } catch (err) {
+    return {
+      status: resources.status.fail,
+      message: resources.messages.error.generic(err),
+    };
+  }
 };
-const updateProductAddProduct = async (
+const updateProductAddQty = async (
   productID,
   productDataQuantity,
   inStockItemsQuantity
 ) => {
-  await Product.updateOne(
-    { _id: productID },
-    { quantity: productDataQuantity + inStockItemsQuantity }
-  );
+  try {
+    const resData = await Product.findByIdAndUpdate(productID, {
+      quantity: inStockItemsQuantity - productDataQuantity,
+    });
+    return {
+      status: resources.status.success,
+      data: resData,
+    };
+  } catch (err) {
+    return {
+      status: resources.status.fail,
+      message: resources.messages.error.generic(err),
+    };
+  }
 };
 const getMultipleProductByIdSize = async (productIDs) => {
   try {
@@ -203,7 +223,7 @@ const updateMutipleQTY = async (updateObj) => {
 module.exports = {
   getProductByID,
   updateProductQtyByID,
-  updateProductAddProduct,
+  updateProductAddQty,
   getMultipleProductByIdSize,
   getMultipleProductById,
   changeProductQty,

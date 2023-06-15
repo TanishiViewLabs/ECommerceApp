@@ -4,6 +4,7 @@ const Product = require("../models/ProductData");
 const addOrderByOrderObject = async (orderObject) => {
   try {
     const orderData = await Order.create(orderObject);
+    orderData.save();
     return {
       status: resources.status.success,
       data: orderData,
