@@ -1,2 +1,6 @@
-server/node_modules/
-server/.env
+server/admin/node_modules/
+server/admin/.env
+server/admin/public
+server/consumer/node_modules/
+server/consumer/.env
+server/consumer/public
